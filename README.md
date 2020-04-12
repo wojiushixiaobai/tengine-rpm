@@ -2,6 +2,10 @@
 
 生成 tengine 的安装包, spec 文件从 nginx rpm 源文件获取并修改
 
+configure 参考 [Axizdkr](https://github.com/Axizdkr/tengine/blob/master/Dockerfile)
+
+spec 文件为直接修改 [Nginx](http://nginx.org/) 源 rpm 包
+
 Use:
 ```
 $ cd /tmp
@@ -35,7 +39,3 @@ Restart
 ```
 systemctl restart nginx
 ```
-
-项目参考了 [Axizdkr](https://github.com/Axizdkr/tengine/blob/master/Dockerfile) configure
-
-spec 为直接修改 [Nginx](http://nginx.org/) 源 rpm 包
