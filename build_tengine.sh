@@ -64,9 +64,14 @@ cp ~/${tengine_version}/conf/fastcgi.conf ~/rpmbuild/BUILDROOT/${tengine_version
 rm -rf ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/usr/share/man/man8/nginx.8.gz
 mv ~/${tengine_version}/objs/nginx.8.gz ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/usr/share/man/man8/
 
+rm -rf ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/usr/share/nginx/html/
+mv ~/${tengine_version}/html ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/usr/share/nginx/
+
+rm -rf ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/usr/share/doc/
+mv ~/${tengine_version}/docs ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/usr/share/
+
 rm -rf ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/etc/sysconfig/nginx-debug
 rm -rf ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/usr/sbin/nginx-debug
-rm -rf ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/usr/share/doc/
 
 sed -i "s/worker_processes  1;/worker_processes  auto;/g" ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/etc/nginx/nginx.conf
 sed -i "s/Description=nginx/Description=tengine/g" ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/usr/lib/systemd/system/nginx.service
