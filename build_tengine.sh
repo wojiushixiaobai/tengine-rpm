@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 #
 
-tengine_version=tengine-2.3.3
-nginx_version=1.18.0
+tengine_version=tengine-2.3.2
 BASE_DIR=$(cd "$(dirname "$0")";pwd)
 PROJECT_DIR=${BASE_DIR}
 
@@ -27,7 +26,7 @@ if [ ! "$(rpm -qa | grep gcc-c++)" ]; then
 fi
 
 if [ ! -d "$tengine_version" ]; then
-    wget https://tengine.taobao.org/download/${tengine_version}.tar.gz
+    wget http://tengine.taobao.org/download/${tengine_version}.tar.gz
     tar -xf ${tengine_version}.tar.gz
     rm -rf ${tengine_version}.tar.gz
 fi
@@ -48,35 +47,35 @@ if [ ! "$(rpm -qa | grep rpmrebuild)" ]; then
 fi
 
 if [ ! -d "~/rpmbuild" ]; then
-    mkdir -p ~/rpmbuild/BUILDROOT/${tengine_version}-2.el7.ngx.x86_64 ~/rpmbuild/SPECS
+    mkdir -p ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64 ~/rpmbuild/SPECS
 fi
 
-cd ~/rpmbuild/BUILDROOT/${tengine_version}-2.el7.ngx.x86_64
-wget http://nginx.org/packages/centos/7/x86_64/RPMS/nginx-${nginx_version}-2.el7.ngx.x86_64.rpm
-rpm2cpio nginx-${nginx_version}-2.el7.ngx.x86_64.rpm | cpio -div
-rm -rf nginx-${nginx_version}-2.el7.ngx.x86_64.rpm
+cd ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64
+wget http://nginx.org/packages/centos/7/x86_64/RPMS/nginx-1.16.1-1.el7.ngx.x86_64.rpm
+rpm2cpio nginx-1.16.1-1.el7.ngx.x86_64.rpm | cpio -div
+rm -rf nginx-1.16.1-1.el7.ngx.x86_64.rpm
 
-rm -rf ~/rpmbuild/BUILDROOT/${tengine_version}-2.el7.ngx.x86_64/usr/sbin/nginx
-cp ~/${tengine_version}/objs/nginx ~/rpmbuild/BUILDROOT/${tengine_version}-2.el7.ngx.x86_64/usr/sbin/
+rm -rf ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/usr/sbin/nginx
+cp ~/${tengine_version}/objs/nginx ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/usr/sbin/
 
-rm -rf ~/rpmbuild/BUILDROOT/${tengine_version}-2.el7.ngx.x86_64/etc/nginx/fastcgi.conf
-cp ~/${tengine_version}/conf/fastcgi.conf ~/rpmbuild/BUILDROOT/${tengine_version}-2.el7.ngx.x86_64/etc/nginx/
+rm -rf ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/etc/nginx/fastcgi.conf
+cp ~/${tengine_version}/conf/fastcgi.conf ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/etc/nginx/
 
-rm -rf ~/rpmbuild/BUILDROOT/${tengine_version}-2.el7.ngx.x86_64/usr/share/man/man8/nginx.8.gz
-mv ~/${tengine_version}/objs/nginx.8.gz ~/rpmbuild/BUILDROOT/${tengine_version}-2.el7.ngx.x86_64/usr/share/man/man8/
+rm -rf ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/usr/share/man/man8/nginx.8.gz
+mv ~/${tengine_version}/objs/nginx.8.gz ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/usr/share/man/man8/
 
-rm -rf ~/rpmbuild/BUILDROOT/${tengine_version}-2.el7.ngx.x86_64/usr/share/nginx/html/
-mv ~/${tengine_version}/html ~/rpmbuild/BUILDROOT/${tengine_version}-2.el7.ngx.x86_64/usr/share/nginx/
+rm -rf ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/usr/share/nginx/html/
+mv ~/${tengine_version}/html ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/usr/share/nginx/
 
-rm -rf ~/rpmbuild/BUILDROOT/${tengine_version}-2.el7.ngx.x86_64/usr/share/doc/
-mv ~/${tengine_version}/docs ~/rpmbuild/BUILDROOT/${tengine_version}-2.el7.ngx.x86_64/usr/share/
+rm -rf ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/usr/share/doc/
+mv ~/${tengine_version}/docs ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/usr/share/
 
-rm -rf ~/rpmbuild/BUILDROOT/${tengine_version}-2.el7.ngx.x86_64/etc/sysconfig/nginx-debug
-rm -rf ~/rpmbuild/BUILDROOT/${tengine_version}-2.el7.ngx.x86_64/usr/sbin/nginx-debug
+rm -rf ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/etc/sysconfig/nginx-debug
+rm -rf ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/usr/sbin/nginx-debug
 
-sed -i "s/worker_processes  1;/worker_processes  auto;/g" ~/rpmbuild/BUILDROOT/${tengine_version}-2.el7.ngx.x86_64/etc/nginx/nginx.conf
-sed -i "s/Description=nginx/Description=tengine/g" ~/rpmbuild/BUILDROOT/${tengine_version}-2.el7.ngx.x86_64/usr/lib/systemd/system/nginx.service
-sed -i "s@http://nginx.org/en/docs/@http://tengine.taobao.org/@g" ~/rpmbuild/BUILDROOT/${tengine_version}-2.el7.ngx.x86_64/usr/lib/systemd/system/nginx.service
+sed -i "s/worker_processes  1;/worker_processes  auto;/g" ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/etc/nginx/nginx.conf
+sed -i "s/Description=nginx/Description=tengine/g" ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/usr/lib/systemd/system/nginx.service
+sed -i "s@http://nginx.org/en/docs/@http://tengine.taobao.org/@g" ~/rpmbuild/BUILDROOT/${tengine_version}-1.el7.ngx.x86_64/usr/lib/systemd/system/nginx.service
 
 cd ~/rpmbuild/SPECS
 if [ ! -f "tengine.spec" ]; then
@@ -88,7 +87,6 @@ rpmbuild -bb SPECS/tengine.spec
 
 rm -rf ~/${tengine_version}
 
-mv ~/rpmbuild/RPMS/x86_64/${tengine_version}-2.el7.ngx.x86_64.rpm $PROJECT_DIR/
-rm -rf ~/rpmbuild
+mv ~/rpmbuild/RPMS/x86_64/${tengine_version}-1.el7.ngx.x86_64.rpm ~/
 
-echo "执行 yum localinstall $PROJECT_DIR/${tengine_version}-2.el7.ngx.x86_64.rpm 安装 tengine"
+echo "执行 yum localinstall ~/${tengine_version}-1.el7.ngx.x86_64.rpm 安装 tengine"
