@@ -10,7 +10,7 @@ Use:
 ```
 $ cd /tmp
 $ git clone https://github.com/wojiushixiaobai/tengine-rpm.git
-$ cd tngine-rpm
+$ cd tengine-rpm
 # 自行编辑 build_tengine.sh 和 tengine.spec
 $ sh build_tengine.sh
 ```
